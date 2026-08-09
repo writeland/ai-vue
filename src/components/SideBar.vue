@@ -8,7 +8,7 @@
       </div>
       <el-menu-item v-for="item in menuRoutes" :key="item.path" :index="`/back/${item.path}`">
         <el-icon v-if="item.meta?.icon">
-          <component :is="iconMap[item.meta.icon]" />
+          <component :is="item.meta.icon" />
         </el-icon>
         <span>{{ item.meta?.title }}</span>
       </el-menu-item>
@@ -19,7 +19,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import * as Icons from '@element-plus/icons-vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -29,9 +28,6 @@ const backRoute = router.options.routes.find(r => r.path === '/back')
 const menuRoutes = computed(() => backRoute?.children ?? [])
 
 const activeMenu = computed(() => route.path)
-
-// 按需取 icon 组件，避免全量注册
-const iconMap: Record<string, any> = Icons
 </script>
 
 <style lang="scss" scoped>

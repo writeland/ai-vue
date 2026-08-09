@@ -1,34 +1,67 @@
 <template>
   <div class="navbar">
-    <div class="navbar-left">
-      <span class="navbar-title">{{ currentTitle }}</span>
+    <div class="navbar-left flex-box">
+      <el-button>
+        <el-icon>
+          <Expand />
+        </el-icon>
+      </el-button>
+      <p class="page-title">{{ route.meta.title }}</p>
+    </div>
+    <div class="nav-right flex-box">
+      <el-dropdown>
+        <div class="flex-box">
+          <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+          <p class="user-name">admin</p>
+          <el-icon>
+            <ArrowDown />
+          </el-icon>
+        </div>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
+import { ElMessageBox } from 'element-plus'
 
+const router = useRouter()
 const route = useRoute()
-const currentTitle = computed(() => route.meta?.title || '首页')
+
+// const handleCollapse = () => {
+//     useAdminStore().toggleCollapse()
+// }
 </script>
 
 <style lang="scss" scoped>
 .navbar {
+  height: 100%;
   display: flex;
   align-items: center;
-  height: 60px;
-  padding: 0 24px;
-  background: #fff;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  justify-content: space-between;
+  padding: 0 15px;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  border-bottom: 1px solid #e5e7eb;
 
-  .navbar-left {
-    .navbar-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: #303133;
-    }
+  .flex-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .page-title {
+    margin-left: 20px;
+    font-size: 26px;
+    font-weight: bold;
+    color: #1f2937;
   }
 }
 </style>
