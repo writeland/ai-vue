@@ -1,11 +1,11 @@
 <template>
-  <el-aside width="220px">
-    <el-menu class="menu" :default-active="activeMenu" background-color="#304156" text-color="#bfcbd9"
+  <el-aside :width="isCollapse ? '64px' : '220px'">
+    <div class="sidebar-logo" :class="{ collapsed: isCollapse }">
+      <h1>心理健康AI助手</h1>
+      <span>管理后台</span>
+    </div>
+    <el-menu class="menu" :collapse="isCollapse" :collapse-transition="false" :default-active="activeMenu" background-color="#304156" text-color="#bfcbd9"
       active-text-color="#409eff" router>
-      <div class="sidebar-logo">
-        <h1>心理健康AI助手</h1>
-        <span>管理后台</span>
-      </div>
       <el-menu-item v-for="item in menuRoutes" :key="item.path" :index="`/back/${item.path}`">
         <el-icon v-if="item.meta?.icon">
           <component :is="item.meta.icon" />
@@ -19,7 +19,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useAdminStore } from '@/stores/admin'
 
+const adminStore = useAdminStore()
 const route = useRoute()
 const router = useRouter()
 
@@ -28,11 +30,13 @@ const backRoute = router.options.routes.find(r => r.path === '/back')
 const menuRoutes = computed(() => backRoute?.children ?? [])
 
 const activeMenu = computed(() => route.path)
+
+const isCollapse = computed(() => adminStore.isCollapse)
 </script>
 
 <style lang="scss" scoped>
 .menu {
-  height: 100vh;
+  height: calc(100vh - 60px);
   background: #263445;
 }
 
@@ -44,7 +48,9 @@ const activeMenu = computed(() => route.path)
   justify-content: center;
   color: #fff;
   padding-left: 20px;
-
+  background: #263445;
+  overflow: hidden;
+  white-space: nowrap;
   h1 {
     font-size: 18px;
   }
@@ -52,6 +58,11 @@ const activeMenu = computed(() => route.path)
   span {
     font-size: 14px;
     color: #ccc;
+  }
+
+  &.collapsed {
+    height: 0;
+    opacity: 0;
   }
 }
 

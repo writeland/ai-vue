@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx vite *)",
+      "Bash(curl -s http://localhost:5174/)",
+      "Bash(kill %1)",
+      "Bash(curl -s http://localhost:5175/src/main.js)",
+      "Bash(curl -s http://localhost:5175/src/stores/admin.js)",
+      "Bash(curl -s http://localhost:5175/src/components/NavBar.vue)"
+    ]
+  }
+}

@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from "vue-router";
 const routes = [
   {
     path: '/back',
+    redirect: '/back/dashboard',
     component: () => import("@/components/BackendLayout.vue"),
     children: [
       {

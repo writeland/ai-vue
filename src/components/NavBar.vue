@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <div class="navbar-left flex-box">
-      <el-button>
+      <el-button @click="handleCollapse">
         <el-icon>
           <Expand />
         </el-icon>
@@ -31,13 +31,15 @@
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElMessageBox } from 'element-plus'
+import { useAdminStore } from '@/stores/admin'
 
+const adminStore = useAdminStore()
 const router = useRouter()
 const route = useRoute()
 
-// const handleCollapse = () => {
-//     useAdminStore().toggleCollapse()
-// }
+const handleCollapse = () => {
+    adminStore.toggleCollapse()
+}
 </script>
 
 <style lang="scss" scoped>
