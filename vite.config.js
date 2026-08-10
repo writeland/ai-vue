@@ -12,5 +12,11 @@ export default defineConfig({
   },
   server: {
     hmr: true,
+    proxy: {
+      '/api': {
+        target: 'http://159.75.169.224:1235',
+        changeOrigin: true
+      }
+    }
   },
 })
